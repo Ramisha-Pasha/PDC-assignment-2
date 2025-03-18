@@ -60,6 +60,105 @@ typedef struct {
 /*
  * Implement your task here
 */
+// // Custom task that doubles the values in a portion of an array.
+// class double_task : public IRunnable {
+//     public:
+//         int* array;
+//         int size;
+//         double_task(int* a, int s) : array(a), size(s) {}
+//         ~double_task() {}
+    
+//         void runTask(int task_id, int num_total_tasks) override {
+//             int block = (size + num_total_tasks - 1) / num_total_tasks;
+//             int start = task_id * block;
+//             int end = std::min(start + block, size);
+//             for (int i = start; i < end; i++) {
+//                 int dummy = 0;
+//                 for (int k = 0; k < 10000; k++) {
+//                     dummy += k;
+//                     dummy -= k;
+//                 }
+//                 array[i] *= 2;
+//             }
+//         }
+//     };
+    
+//     // Custom task that adds 5 to the values in a portion of an array.
+//     class add_task : public IRunnable {
+//     public:
+//         int* array;
+//         int size;
+//         int val;
+//         add_task(int* a, int s, int val) : array(a), size(s), val(val) {}
+//         ~add_task() {}
+    
+//         void runTask(int task_id, int num_total_tasks) override {
+//             int block = (size + num_total_tasks - 1) / num_total_tasks;
+//             int start = task_id * block;
+//             int end = std::min(start + block, size);
+//             for (int i = start; i < end; i++) {
+//                 int dummy = 0;
+//                 for (int k = 0; k < 10000; k++) {
+//                     dummy += k;
+//                     dummy -= k;
+//                 }
+//                 array[i] += val;
+//             }
+//         }
+//     };
+    
+//     // Test: Double and Add Test
+//     //  - Initialize an array of size `num_elements` with 1s.
+//     //  - Run a bulk launch to double the array.
+//     //  - Then, run a bulk launch to add 5 to each element.
+//     //  - The expected result is that every element equals 7.
+//     TestResults double_add(ITaskSystem* t, bool do_async, int num_elements, int num_bulk) {
+//         // Initialize array with 1s.
+//         int* array = new int[num_elements];
+//         for (int i = 0; i < num_elements; i++) {
+//             array[i] = 1;
+//         }
+        
+//         //1000 tasks per launch
+//         int num_tasks = 1000;
+        
+//         double start_time = CycleTimer::currentSeconds();
+//     if (do_async) {
+        
+//         std::vector<BulkId> noDeps;
+//         for (int j = 0; j < num_bulk; j++) {
+//             BulkId doubleId = t->runAsyncWithDeps(new double_task(array, num_elements), num_tasks, noDeps);
+//             std::vector<BulkId> addDeps = { doubleId };
+//             t->runAsyncWithDeps(new add_task(array, num_elements, 5), num_tasks, addDeps);
+//         }
+//         t->sync();
+//     } else {
+//         for (int j = 0; j < num_bulk; j++) {
+//             t->run(new double_task(array, num_elements), num_tasks);
+//             t->run(new add_task(array, num_elements, 5), num_tasks);
+//         }
+//     }
+//     double end_time = CycleTimer::currentSeconds();
+    
+        
+//        //verify result equals 7
+//         TestResults result;
+//         result.passed = true;
+//         for (int i = 0; i < num_elements; i++) {
+//             if (array[i] != 7) {
+//                 result.passed = false;
+//                 printf("Error at index %d: got %d, expected 7\n", i, array[i]);
+//                 break;
+//             }
+//         }
+//         result.time = end_time - start_time;
+        
+//         delete [] array;
+//         return result;
+//     }
+    // TestResults double_add_wrapper(ITaskSystem* t) {
+    //     return double_add(t, true, 10000000000,1000);
+    // }   
 class YourTask : public IRunnable {
     public:
         YourTask() {}

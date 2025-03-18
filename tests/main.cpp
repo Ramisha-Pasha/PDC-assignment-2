@@ -49,7 +49,7 @@ ITaskSystem *selectTaskSystemRefImpl(int num_threads, TaskSystemType type) {
 
 int main(int argc, char** argv)
 {
-    const int n_tests = 31;
+    const int n_tests = 32;
     int num_threads = DEFAULT_NUM_THREADS;
     int num_timing_iterations = DEFAULT_NUM_TIMING_ITERATIONS;
 
@@ -83,9 +83,11 @@ int main(int argc, char** argv)
         strictGraphDepsSmall,
         strictGraphDepsMedium,
         strictGraphDepsLarge,
+        // double_add_wrapper,
     };
 
     std::string test_names[n_tests] = {
+        "double_and_add_test",
         "simple_test_sync",
         "simple_test_async",
         "ping_pong_equal",

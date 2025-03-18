@@ -21,14 +21,16 @@ class IRunnable {
 };
 
 class ITaskSystem {
-    public:
+  protected:
+    int num_threads;  // Add this member variable
+  public:
         /*
           Instantiates a task system.
 
            - num_threads: the maximum number of threads that the task system
              can use.
          */
-        ITaskSystem(int num_threads);
+        ITaskSystem(int num_threads): num_threads(num_threads) {}
         virtual ~ITaskSystem();
         virtual const char* name() = 0;
 
